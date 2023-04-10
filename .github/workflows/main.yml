@@ -7,52 +7,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  # This workflow contains a job to manage VDB and SelfService container life-cycle
+  manage_vdbs:
+    environment:
+      name: delphix-engine
     runs-on: ubuntu-latest
     container: delphix/dxtoolkit:latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout do Repositório
-      uses: actions/checkout@v2
-
-    - name: Configuração do Ambiente
-      env:
-        DELPHIX_USER: ${{ secrets.DELPHIX_USER }}
-        DELPHIX_PASSWORD: ${{ secrets.DELPHIX_PASSWORD }}
-        DELPHIX_HOST: ${{ secrets.DELPHIX_HOST }}
-      run: |
-        # Configuração do ambiente
-        echo "DELPHIX_USER=${DELPHIX_USER}"
-        echo "DELPHIX_PASSWORD=${DELPHIX_PASSWORD}"
-        echo "DELPHIX_HOST=${DELPHIX_HOST}"
-        
-    - name: Criando Section
-      run: |
-              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/session \
-                -c ~/cookies.txt -H "Content-Type: application/json" <<EOF
-              {
-                "type": "APISession",
-                "version": {
-                    "type": "APIVersion",
-                    "major": 1,
-                    "minor": 4,
-                    "micro": 3
-                }
-              }
-              EOF
-              
-    - name: Login
-      run: |
-              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/login \
-                -b ~/cookies.txt -H "Content-Type: application/json" <<EOF
-              {
-                  "type": "LoginRequest",
-                  "username": "admin",
-                  "password": "admin"
-              }
-              EOF
-              
-    - name: Criando VDB
-      run: |
-            dx_provision_vdb -d Delphix -group SQLServer_SOURCE -sourcename DS_AdventureWorksLT2019 -targetname autotest2 -dbname autotest2 -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER  
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Runs a set of commands using the runners shell
+      - name: Set dxtools.conf
+        run: |
+          mkdir /config
+          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.90.84.185\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
+                  
+       # Criando VDB
+      - name: Set dxtools.conf
+        run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname  ${{ github.ref }} -dbname  ${{ github.ref }} -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
 
