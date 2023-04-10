@@ -9,5 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Testando o actions
-        run: echo Hello, world!
+
+      - name: Set color
+        id: random-color-generator
+        run: |
+            "SELECTED_COLOR=green" >> $env:GITHUB_OUTPUT
+      - name: Get color
+        run: Write-Output "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
