@@ -1,0 +1,13 @@
+name: create VDB
+
+on:
+  create:
+    branches: ["*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Testando o actions
+        run: echo Hello, world!
