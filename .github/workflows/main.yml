@@ -19,9 +19,9 @@ jobs:
         DELPHIX_HOST: ${{ secrets.DELPHIX_HOST }}
       run: |
         # Configuração do ambiente
-        echo "DELPHIX_USER=${DELPHIX_USER}"
-        echo "DELPHIX_PASSWORD=${DELPHIX_PASSWORD}"
-        echo "DELPHIX_HOST=${DELPHIX_HOST}"
+        echo "DELPHIX_USER=${admin}"
+        echo "DELPHIX_PASSWORD=${admin}"
+        echo "DELPHIX_HOST=${3.90.84.185}"
         
     - name: Criando Section
       run: |
