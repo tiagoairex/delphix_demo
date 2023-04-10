@@ -4,16 +4,22 @@ on:
   create:
     branches: ["*"]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+steps:
+    - name: Checkout do Repositório
+      uses: actions/checkout@v2
 
-      - name: Login_CC
-        id: Login_CC
-        env: 
-          delphix-server: 3.90.84.185
-        run: curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/login -b ~/cookies.txt -H "Content-Type:application/json" << EOF {"type":"LoginRequest","username":"admin","password":"admin"} EOF
+    - name: Configuração do Ambiente
+      env:
+        DELPHIX_USER: ${{ secrets.DELPHIX_USER }}
+        DELPHIX_PASSWORD: ${{ secrets.DELPHIX_PASSWORD }}
+        DELPHIX_HOST: ${{ secrets.DELPHIX_HOST }}
+      run: |
+        # Configuração do ambiente
+        echo "DELPHIX_USER=${DELPHIX_USER}"
+        echo "DELPHIX_PASSWORD=${DELPHIX_PASSWORD}"
+        echo "DELPHIX_HOST=${DELPHIX_HOST}"
         
- 
+    - name: Execução de Script no Delphix
+      run: |
+        # Comandos para execução de script no Delphix
+        echo "Executando script no Delphix"
