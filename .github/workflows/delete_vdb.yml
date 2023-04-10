@@ -28,11 +28,8 @@ jobs:
           mkdir /config
           echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.90.84.185\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
-      - name: Branch name
-      - uses: nelonoel/branch-name@v1
-      - run: echo ${BRANCH_NAME}
-                  
+                      
        # Deletando VDB
       - name: Remove VDB
-        run: dx_remove_db -d Delphix -name ${{ BRANCH_NAME }} -skip
+        run: dx_remove_db -d Delphix -name ${{ github.event.ref }} -skip
 
