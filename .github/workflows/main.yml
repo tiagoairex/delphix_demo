@@ -10,9 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set color
-        id: random-color-generator
-        run: |
-            "SELECTED_COLOR=green" >> $env:GITHUB_OUTPUT
-      - name: Get color
-        run: Write-Output "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+      - name: Login_CC
+        id: Login_CC
+        env: 
+          delphix-server: x.x.x.x.x
+        run: curl -s -X POST -k --data @- http://$delphix-server/resources/json/delphix/login -b ~/cookies.txt -H "Content-Type:application/json" << EOF {"type":"LoginRequest","username":"admin","password":"admin"}EOF
+        
+      - name: Create_VDB
+        id: Create_VDB
+        env: 
+          delphix-server: x.x.x.x.x
+        run: create VDB
