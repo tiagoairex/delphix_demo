@@ -29,6 +29,6 @@ jobs:
           echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.90.84.185\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
        # Criando VDB
-      - name: Set dxtools.conf
-        run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
+      - name: Create VDB
+        run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname  ${{ github.ref }} -dbname  ${{ github.ref }} -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
 
