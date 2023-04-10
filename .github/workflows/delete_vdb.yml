@@ -1,4 +1,4 @@
-name: Criar VDB via API do Delphix
+name: Deletar VDB via API do Delphix
 
 on:
   delete:
