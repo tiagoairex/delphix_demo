@@ -27,4 +27,4 @@ jobs:
                   
        # Criando VDB
       - name: Set dxtools.conf
-        run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname autotest -dbname autotest -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
+        run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname  ${{ github.ref }} -dbname  ${{ github.ref }} -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
