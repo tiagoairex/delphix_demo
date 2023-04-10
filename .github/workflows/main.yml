@@ -3,6 +3,8 @@ name: create VDB
 on:
   create:
     branches: ["*"]
+  
+  workflow_dispatch:
 
 jobs:
   build:
