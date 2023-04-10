@@ -2,8 +2,7 @@ name: Criar VDB via API do Delphix
 
 on:
   push:
-    branches:
-      - main
+    branches: ["*"]
   workflow_dispatch:
 
 jobs:
