@@ -28,7 +28,11 @@ jobs:
           mkdir /config
           echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.90.84.185\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+                  
        # Deletando VDB
       - name: Remove VDB
-        run: dx_remove_db -d Delphix -name ${{ github.ref }} -skip
+        run: dx_remove_db -d Delphix -name ${{ branch-name }} -skip
 
