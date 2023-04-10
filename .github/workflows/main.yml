@@ -23,7 +23,28 @@ jobs:
         echo "DELPHIX_PASSWORD=${DELPHIX_PASSWORD}"
         echo "DELPHIX_HOST=${DELPHIX_HOST}"
         
-    - name: Execução de Script no Delphix
+    - name: Criando Section
       run: |
-        # Comandos para execução de script no Delphix
-        echo "Executando script no Delphix"
+              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/session \
+                -c ~/cookies.txt -H "Content-Type: application/json" <<EOF
+              {
+                "type": "APISession",
+                "version": {
+                    "type": "APIVersion",
+                    "major": 1,
+                    "minor": 4,
+                    "micro": 3
+                }
+              }
+              EOF
+              
+    - name: Login
+      run: |
+              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/login \
+                -b ~/cookies.txt -H "Content-Type: application/json" <<EOF
+              {
+                  "type": "LoginRequest",
+                  "username": "admin",
+                  "password": "admin"
+              }
+              EOF
