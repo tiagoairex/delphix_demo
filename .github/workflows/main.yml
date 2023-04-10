@@ -7,31 +7,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  criar-vdb:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout do Repositório
+      uses: actions/checkout@v2
 
-      - name: Configuração do Ambiente
-        env:
-          DELPHIX_USER: ${{ secrets.DELPHIX_USER }}
-          DELPHIX_PASSWORD: ${{ secrets.DELPHIX_PASSWORD }}
-          DELPHIX_HOST: ${{ secrets.DELPHIX_HOST }}
-        run: |
-          # Configuração do ambiente
-          echo "DELPHIX_USER=${admin}"
-          echo "DELPHIX_PASSWORD=${admin}"
-          echo "DELPHIX_HOST=${3.90.84.185}"
-
-      - name: Delphix Login
-        uses: delphix/dxcli-action@v2
-        with:
-          args: login --username ${{ secrets.DELPHIX_USER }} --password ${{ secrets.DELPHIX_PASSWORD }} --engine ${{ secrets.DELPHIX_HOST }}
-
-      - name: Criar VDB
-        uses: delphix/dxcli-action@v2
-        with:
-          args: database create --type OracleDatabaseContainer --name Nome_do_VDB --group Nome_do_Grupo --config Nome_da_Configuração_do_Source --databaseName Nome_do_Banco_de_Dados --uniqueName Nome_Único_do_Banco_de_Dados --instanceName Nome_da_Instância --instanceNumber 1 --customCreationOption "OracleDatabaseContainer.CreateAsSource=true" --customCreationOption "OracleDatabaseContainer.MountAsClone=false" --customCreationOption "OracleDatabaseContainer.MountOnly=false" --customCreationOption "OracleDatabaseContainer.NonSysDatabase=true" --customCreationOption "OracleDatabaseContainer.CpuCount=1" --customCreationOption "OracleDatabaseContainer.Memory=2" --customCreationOption "OracleDatabaseContainer.Storage=20" --customCreationOption "OracleDatabaseContainer.MountBase=/mnt/provision" --customCreationOption "OracleDatabaseContainer.Source.DbConnectionInfo.ServiceName=<Nome_do_Serviço>" --customCreationOption "OracleDatabaseContainer.Source.DbConnectionInfo.Username=<Nome_de_Usuário>" --customCreationOption "OracleDatabaseContainer.Source.DbConnectionInfo.Password=<Senha_do_Usuário>"
+    - name: Configuração do Ambiente
+      env:
+        DELPHIX_USER: ${{ secrets.DELPHIX_USER }}
+        DELPHIX_PASSWORD: ${{ secrets.DELPHIX_PASSWORD }}
+        DELPHIX_HOST: ${{ secrets.DELPHIX_HOST }}
+      run: |
+        # Configuração do ambiente
+        echo "DELPHIX_USER=${DELPHIX_USER}"
+        echo "DELPHIX_PASSWORD=${DELPHIX_PASSWORD}"
+        echo "DELPHIX_HOST=${DELPHIX_HOST}"
+        
+    - name: Criando Section
+      run: |
+              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/session \
+                -c ~/cookies.txt -H "Content-Type: application/json" <<EOF
+              {
+                "type": "APISession",
+                "version": {
+                    "type": "APIVersion",
+                    "major": 1,
+                    "minor": 4,
+                    "micro": 3
+                }
+              }
+              EOF
+              
+    - name: Login
+      run: |
+              curl -s -X POST -k --data @- http://3.90.84.185/resources/json/delphix/login \
+                -b ~/cookies.txt -H "Content-Type: application/json" <<EOF
+              {
+                  "type": "LoginRequest",
+                  "username": "admin",
+                  "password": "admin"
+              }
+              EOF
 
