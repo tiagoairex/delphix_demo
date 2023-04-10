@@ -1,9 +1,9 @@
-name: create VDB
+name: Criar VDB via API do Delphix
 
 on:
-  create:
-    branches: ["*"]
-  
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      
       # Runs a set of commands using the runners shell
       - name: Set dxtools.conf
         run: |
@@ -28,3 +28,4 @@ jobs:
        # Criando VDB
       - name: Set dxtools.conf
         run: dx_provision_vdb -d Delphix -group SQLServer_TARGET -sourcename DS_AdventureWorksLT2019 -targetname  ${{ github.ref }} -dbname  ${{ github.ref }} -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER
+
