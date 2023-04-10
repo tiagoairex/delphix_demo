@@ -50,4 +50,6 @@ jobs:
                   "password": "admin"
               }
               EOF
+    - name: Criando VDB
+      run: dx_provision_vdb -d Delphix -group SQLServer_SOURCE -sourcename DS_AdventureWorksLT2019 -targetname TESTEACTIONS -dbname autotest -environment MSSQLSERVER_2019 -type mssql -envinst MSSQLSERVER  
 
