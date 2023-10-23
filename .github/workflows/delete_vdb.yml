@@ -26,7 +26,7 @@ jobs:
       - name: Set dxtools.conf
         run: |
           mkdir /config
-          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"54.167.153.255\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
+          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.90.65.42\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
                       
        # Deletando VDB
