@@ -30,5 +30,5 @@ jobs:
                   
       # Criando VDB
       - name: Create VDB
-        run: dx_provision_vdb -d Delphix -group MSSQL_TARGET -sourcename SRC -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment ENV_SQLSERVER -type mssql
+        run: dx_provision_vdb -d Delphix -group MSSQL_TARGET -sourcename SRC -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment ENV_SQLSERVER -type mssql -instname MSSQLSERVER
 
