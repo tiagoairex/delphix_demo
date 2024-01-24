@@ -26,10 +26,10 @@ jobs:
       - name: Set dxtools.conf
         run: |
           mkdir /config
-          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"18.207.2.160\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
+          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.83.18.254\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
                       
-       # Deletando VDB
+      # Deletando VDB
       - name: Remove VDB
         run: dx_remove_db -d Delphix -name ${{ github.event.ref }} -skip
 

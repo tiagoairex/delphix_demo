@@ -26,9 +26,9 @@ jobs:
       - name: Set dxtools.conf
         run: |
           mkdir /config
-          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"ip-172-31-2-128.ec2.internal\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
+          echo {\"data\":[{\"hostname\" : \"Delphix\",\"ip_address\" : \"3.83.18.254\",\"username\" : \"admin\",\"password\" : \"admin\",\"port\" : \"80\",\"default\" : \"false\",\"encrypted\" : \"false\",\"timeout\" : \"60\"}]} > /config/dxtools.conf
                   
-       # Criando VDB
+      # Criando VDB
       - name: Create VDB
         run: dx_provision_vdb -d Delphix -group MSSQL_TARGET -sourcename SRC -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment ENV_SQLSERVER -type mssql -envinst MSSQLSERVER
 
