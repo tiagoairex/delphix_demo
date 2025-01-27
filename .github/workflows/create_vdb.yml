@@ -21,6 +21,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
+      # Atualizar dependências no container
+      - name: Update dependencies
+        run: |
+          apt-get update && apt-get install -y libc6
+          apt-get install -y libstdc++6
+          apt-get install -y libssl-dev
       
       # Runs a set of commands using the runners shell
       - name: Set dxtools.conf
