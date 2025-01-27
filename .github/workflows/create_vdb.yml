@@ -30,5 +30,5 @@ jobs:
                   
       # Criando VDB
       - name: Create VDB
-        run: dx_provision_vdb -d Delphix -group DS_SQLSERVER -sourcename Ds_AdventureWorks2022 -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment TGT_SQLSERVER -type mssql -envinst TGT_SQLSERVER
+        run: dx_provision_vdb -d Delphix -group DS_SQLSERVER -sourcename Ds_AdventureWorks2019 -targetname  ${{ github.ref_name }} -dbname  ${{ github.ref_name }} -environment TGT_SQLSERVER -type mssql -envinst TGT_SQLSERVER
 
